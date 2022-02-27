@@ -33,13 +33,13 @@
     background-color: #2774AE;
     color: white;
     padding: 0.5rem 1.5rem;
-    border: 1px solid #2774AE;
+    border: 2px solid #ffd700;
     border-radius: 4px;
     font-weight: bold;
   }
   
   .actions button:hover,
   .actions button:active {
-    background-color: #2774AE;
-    border-color: #2774AE;
+    background-color: #ffd700;
+    border-color: #2774ae;
   }

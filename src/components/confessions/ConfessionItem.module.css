@@ -20,9 +20,9 @@
   .actions button {
     font: inherit;
     cursor: pointer;
-    color: #2774AE;
-    border: 1px solid #2774AE;
-    background-color: transparent;
+    color: #000000;
+    border: 1px solid #000000;
+    background-color: #ffd700;
     padding: 0.5rem 1.5rem;
     border-radius: 4px;
   }

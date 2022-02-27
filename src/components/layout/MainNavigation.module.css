@@ -10,7 +10,7 @@
   
   .logo {
     font-size: 2rem;
-    color: white;
+    color: gold;
     font-weight: bold;
   }
   
@@ -35,7 +35,7 @@
   .header a:hover,
   .header a:active,
   .header a.active {
-    color: white;
+    color: gold;
   }
   
   .badge {
