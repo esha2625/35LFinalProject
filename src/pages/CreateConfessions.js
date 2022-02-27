@@ -4,7 +4,7 @@ function CreateConfessionsPage() {
     const navigate = useNavigate();
     function addConfessionHandler(confessionData) {
         fetch(
-            'https://bruinfessions-default-rtdb.firebaseio.com/confessions.json',
+            'https://bruinfessions-e55f6-default-rtdb.firebaseio.com/confessions.json',
             {
                 method: 'POST',
                 body: JSON.stringify(confessionData),
