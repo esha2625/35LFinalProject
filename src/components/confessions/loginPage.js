@@ -1,6 +1,7 @@
 import {useRef} from 'react';
+import {Link} from 'react-router-dom';
 import Card from '../ui/Card';
-import classes from './NewConfessionForm.module.css';
+import classes from './loginPage.module.css';
 
 function NewConfessionForm(props){
     const titleInputRef = useRef();
@@ -21,18 +22,28 @@ function NewConfessionForm(props){
     return <Card>
         <form className={classes.form} onSubmit={submitHandler}>
             <div className={classes.control}>
-                <label htmlFor="title">Confession Title</label>
+                <label htmlFor="title">If you have an account with us, login here. Otherwise create an account!</label>
+            </div>
+            <div className={classes.control}>
+                <label htmlFor="title">Username</label>
                 <input type="text" required id="title" ref={titleInputRef}/>
             </div>
             <div className={classes.control}>
-                <label htmlFor="description">Confession Content</label>
-                <textarea id="description" required rows='10' ref={descriptionInputRef}></textarea>
+                <label htmlFor="description">Password</label>
+                <input type="text" required id="title" ref={titleInputRef}/>
             </div>
             <div className={classes.actions}>
-            <button>Add Confession</button>
+            <button>Submit</button>
             </div>
         </form>
+        <div className={classes.actions}>
+            <button onclick = "linkToCreateAccountPage()">Create Account</button>
+        </div>
     </Card>
+}
+
+function linkToCreateAccountPage(){
+    <Link to = '/create-account'></Link>
 }
 
 export default NewConfessionForm;

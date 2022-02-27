@@ -1,6 +1,6 @@
 import {useRef} from 'react';
 import Card from '../ui/Card';
-import classes from './NewConfessionForm.module.css';
+import classes from './createAccount.module.css';
 
 function NewConfessionForm(props){
     const titleInputRef = useRef();
@@ -21,15 +21,15 @@ function NewConfessionForm(props){
     return <Card>
         <form className={classes.form} onSubmit={submitHandler}>
             <div className={classes.control}>
-                <label htmlFor="title">Confession Title</label>
+                <label htmlFor="title">Username</label>
                 <input type="text" required id="title" ref={titleInputRef}/>
             </div>
             <div className={classes.control}>
-                <label htmlFor="description">Confession Content</label>
-                <textarea id="description" required rows='10' ref={descriptionInputRef}></textarea>
+                <label htmlFor="description">Password</label>
+                <input type="text" required id="title" ref={titleInputRef}/>
             </div>
             <div className={classes.actions}>
-            <button>Add Confession</button>
+            <button>Create Account</button>
             </div>
         </form>
     </Card>

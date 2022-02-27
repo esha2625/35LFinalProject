@@ -1,4 +1,4 @@
-import NewConfessionForm from "../components/confessions/NewConfessionForm";
+import NewConfessionForm from "../components/confessions/loginPage";
 import {useNavigate} from 'react-router-dom';
 function CreateConfessionsPage() {
     const navigate = useNavigate();
@@ -17,7 +17,7 @@ function CreateConfessionsPage() {
         });
     }
     return <section>
-        <h1>'Fess up, Bruin!</h1>
+        <h1>Welcome Bruins!</h1>
         <NewConfessionForm onAddConfession = {addConfessionHandler}/>
     </section>
 }
