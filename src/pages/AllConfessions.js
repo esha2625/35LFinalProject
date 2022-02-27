@@ -6,26 +6,20 @@ const DUMMY_DATA = [
     id: 'c1',
     title: 'I have a confession...',
     description:
-      'Guys...I slept with the professors lover. Do you think ill still get an A?',
+      'Guys...I ____ with the professors ___. Do you think I will still get an A?',
   },
   {
     id: 'c2',
     title: 'Back with another confession...',
     description:
-      'My professors lover proposed to me..we are eloping! :0',
+      'My professors ____ proposed to me..we are ____',
   },
   {
     id: 'c3',
     title: 'r/offmychest was down today so here I am',
     description:
       'Once I ate dried milk that i found in the Sproul Hall laundry room.',
-  },
-  {
-    id: 'c4',
-    title: 'anyone down to trade? add my snap: @fuccboi',
-    description:
-      'Looking for beautiful women to trade with...dont be an uggo',
-  },
+  }
 ];
 
 
