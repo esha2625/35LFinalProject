@@ -4,9 +4,13 @@ import {BrowserRouter} from 'react-router-dom';
 
 import './index.css';
 import App from './App';
+import { LikesContextProvider } from './store/likes-context';
 
 ReactDOM.render(
-    <BrowserRouter><App /></BrowserRouter>,
+  <LikesContextProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </LikesContextProvider>,
   document.getElementById('root')
 );
-

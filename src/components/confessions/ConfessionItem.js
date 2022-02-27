@@ -1,7 +1,29 @@
-import classes from './ConfessionItem.module.css'
+import { useContext } from 'react';
+
 import Card from '../ui/Card';
+import classes from './ConfessionItem.module.css';
+import LikesContext from '../../store/likes-context';
 
 function ConfessionItem(props) {
+  const likesCtx = useContext(LikesContext);
+
+  const itemIsLike = likesCtx.itemIsLike(props.id);
+
+  function toggleLikeStatusHandler() {
+    if (itemIsLike){
+      likesCtx.removeLike(props.id);
+    } else {
+      likesCtx.addLike({
+        id: props.id,
+        title: props.title,
+        description: props.description,
+        image: props.image,
+        address: props.address,
+      });
+    }
+  }
+
+
     return(
         <li className={classes.item}>
             <Card>
@@ -10,7 +32,9 @@ function ConfessionItem(props) {
                 <p>{props.description}</p>
             </div>
             <div className={classes.actions}>
-                <button>Like</button>
+                <button onClick={toggleLikeStatusHandler}>
+                  {itemIsLike ? 'Unlike' : 'Like'}
+                </button>
             </div>
             </Card>
         </li>
