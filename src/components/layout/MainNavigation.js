@@ -15,7 +15,7 @@ function MainNavigation() {
                     <Link to = '/create-confession'>Create Confessions</Link>
                 </li>
                 <li>
-                    <Link to = '/likes'>Likes</Link>
+                    <Link to = '/favorites'>Favorites</Link>
                 </li>
                 <li>
                     <Link to = '/login-page'>Login Page</Link>

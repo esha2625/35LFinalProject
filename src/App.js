@@ -3,7 +3,7 @@ import {Route} from 'react-router-dom';
 import AllConfessionsPage from './pages/AllConfessions';
 import CreateConfessionsPage from './pages/CreateConfessions';
 //import LoginPage from './pages/Login';
-import LikesPage from './pages/Likes';
+import FavoritesPage from './pages/Favorites';
 import Login_Kat from './pages/Login_Kat'
 import CreateAccountPage from './pages/CreateAccount';
 import MainNavigation from './components/layout/MainNavigation';
@@ -16,7 +16,7 @@ function App() {
         <Route path="/create-confession" element={<CreateConfessionsPage />} />
         <Route path="/login-page" element={<Login_Kat />} />
         <Route path="/create-account" element={<CreateAccountPage/>} />
-        <Route path='/likes' element={<LikesPage />} />
+        <Route path='/favorites' element={<FavoritesPage />} />
       </Routes>
   </Layout>
   );

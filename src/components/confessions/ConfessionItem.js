@@ -2,18 +2,18 @@ import { useContext } from 'react';
 
 import Card from '../ui/Card';
 import classes from './ConfessionItem.module.css';
-import LikesContext from '../../store/likes-context';
+import FavoritesContext from '../../store/favorites-context';
 
 function ConfessionItem(props) {
-  const likesCtx = useContext(LikesContext);
+  const favoritesCtx = useContext(FavoritesContext);
 
-  const itemIsLike = likesCtx.itemIsLike(props.id);
+  const itemIsFavorite = favoritesCtx.itemIsFavorite(props.id);
 
-  function toggleLikeStatusHandler() {
-    if (itemIsLike){
-      likesCtx.removeLike(props.id);
+  function toggleFavoriteStatusHandler() {
+    if (itemIsFavorite){
+      favoritesCtx.removeFavorite(props.id);
     } else {
-      likesCtx.addLike({
+      favoritesCtx.addFavorite({
         id: props.id,
         title: props.title,
         description: props.description,
@@ -32,8 +32,8 @@ function ConfessionItem(props) {
                 <p>{props.description}</p>
             </div>
             <div className={classes.actions}>
-                <button onClick={toggleLikeStatusHandler}>
-                  {itemIsLike ? 'Unlike' : 'Like'}
+                <button onClick={toggleFavoriteStatusHandler}>
+                  {itemIsFavorite ? 'Remove Favorite' : 'Favorite'}
                 </button>
             </div>
             </Card>

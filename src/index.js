@@ -4,13 +4,13 @@ import {BrowserRouter} from 'react-router-dom';
 
 import './index.css';
 import App from './App';
-import { LikesContextProvider } from './store/likes-context';
+import { FavoritesContextProvider } from './store/favorites-context';
 
 ReactDOM.render(
-  <LikesContextProvider>
+  <FavoritesContextProvider>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </LikesContextProvider>,
+  </FavoritesContextProvider>,
   document.getElementById('root')
 );
