@@ -17,9 +17,22 @@ function CreateConfessionsPage() {
         });
     }
     return <section>
-        <h1>'Fess up, Bruin!</h1>
-        <NewConfessionForm onAddConfession = {addConfessionHandler}/> */
+        <div className="confessions_page"> 
+            <div className="page_header">
+                <h1>'Fess up, Bruin!</h1>
+            </div>
+            <NewConfessionForm onAddConfession = {addConfessionHandler}/>
+        </div>
     </section>
 }
 
 export default CreateConfessionsPage;
+
+/* Start HTML */
+
+/*ReactDOM.render(
+  <HomePage />,
+  document.getElementById('root')
+); */
+
+// ReactDOM.render(<NameForm />, document.getElementById('login'));

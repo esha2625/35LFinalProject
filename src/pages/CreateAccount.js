@@ -54,8 +54,12 @@ function CreateAccountPage() {
     } 
     
     return <section>
-        <h1>Ready to Confess?</h1>
-        <NewAccountForm onAddConfession = {addConfessionHandler}/>
+        <div className="create_account_page">
+            <div className="page_header">
+                <h1>Ready to Confess?</h1>
+            </div>
+            <NewAccountForm onAddConfession = {addConfessionHandler}/>
+        </div>
     </section>
 }
 
