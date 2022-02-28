@@ -18,7 +18,7 @@ function CreateConfessionsPage() {
     }
     return <section>
         <h1>'Fess up, Bruin!</h1>
-        <NewConfessionForm onAddConfession = {addConfessionHandler}/>
+        <NewConfessionForm onAddConfession = {addConfessionHandler}/> */
     </section>
 }
 

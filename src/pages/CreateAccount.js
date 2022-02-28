@@ -51,15 +51,7 @@ function CreateAccountPage() {
         
         
                         
-    }
-            
-              
-              
-        
-        
-
-        
-        
+    } 
     
     return <section>
         <h1>Ready to Confess?</h1>
