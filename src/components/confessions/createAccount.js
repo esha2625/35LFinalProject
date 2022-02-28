@@ -2,7 +2,7 @@ import {useRef} from 'react';
 import Card from '../ui/Card';
 import classes from './createAccount.module.css';
 
-function NewConfessionForm(props){
+function NewAccountForm(props){
     const titleInputRef = useRef();
     const descriptionInputRef = useRef();
     function submitHandler(event) {
@@ -12,9 +12,10 @@ function NewConfessionForm(props){
         const enteredDescription = descriptionInputRef.current.value;
 
         const confessionData = {
-            title: enteredTitle,
-            description: enteredDescription,
+            login: enteredTitle,
+            password: enteredDescription,
         };
+        console.log(confessionData);
 
         props.onAddConfession(confessionData);
     }
@@ -26,7 +27,7 @@ function NewConfessionForm(props){
             </div>
             <div className={classes.control}>
                 <label htmlFor="description">Password</label>
-                <input type="text" required id="title" ref={titleInputRef}/>
+                <input type="text" required id="description" ref={descriptionInputRef}/>
             </div>
             <div className={classes.actions}>
             <button>Create Account</button>
@@ -35,4 +36,4 @@ function NewConfessionForm(props){
     </Card>
 }
 
-export default NewConfessionForm;
+export default NewAccountForm;
