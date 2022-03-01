@@ -978,7 +978,7 @@ input[type=password] {
   }
 .HomePage {
     margin-top: 100px;
-    min-height: 100vh;
+    min-height: 70vh;
 }
 /*----------------------------------------------------------Confessions Pages--------------------------------------------------------------------------------*/
 .page_header {
