@@ -29,7 +29,9 @@ function NewConfessionForm(props){
                 <textarea id="description" required rows='10' ref={descriptionInputRef}></textarea>
             </div>
             <div className={classes.actions}>
-            <button>Add Confession</button>
+                <div className="vertical-center">
+                    <button>Add Confession</button>
+                </div>
             </div>
         </form>
     </Card>

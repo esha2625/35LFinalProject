@@ -1,6 +1,8 @@
 import NewAccountForm from "../components/confessions/createAccount";
 import {useNavigate} from 'react-router-dom';
 import { useEffect, useState } from "react";
+import './style.css';
+
 function CreateAccountPage() {
     const navigate = useNavigate();
     var i =1 ;
@@ -54,12 +56,29 @@ function CreateAccountPage() {
     } 
     
     return <section>
-        <div className="create_account_page">
-            <div className="page_header">
-                <h1>Ready to Confess?</h1>
+        <div className="HomePage">
+            <div className = "typewriter">
+                <div>
+                    <h1>Ready to Confess?</h1>
+                </div>
             </div>
-            <NewAccountForm onAddConfession = {addConfessionHandler}/>
-        </div>
+            
+            <h2>Create an Account:</h2> 
+
+            <div className="login-form">
+                <form>
+                    <label>
+                        Username:
+                        <input type="text" name="Username"/>
+                    </label>
+                    <label>
+                        Password:
+                    </label>
+                        <input type="password" name="Password"/>
+                    <input type="submit" value="Submit"/>
+                </form>
+            </div>
+            </div>
     </section>
 }
 
