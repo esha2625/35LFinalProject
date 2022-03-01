@@ -29,7 +29,7 @@
 
 .header a {
   text-decoration: none;
-  font-size: 15px;
+  font-size: calc(14px + .1vw);;
   color: #eee0e5;
 }
 
