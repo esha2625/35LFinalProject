@@ -67,8 +67,10 @@ function AllConfessionsPage(){
 
   return (
   <section>
-    <h1>All Confessions</h1>
-    <ConfessionList confessions={loadedConfessions} />
+    <div className = "confessions_wrap">
+      <h1>All Confessions</h1>
+      <ConfessionList confessions={loadedConfessions} />
+    </div>
   </section>
   );
 }
