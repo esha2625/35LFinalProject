@@ -31,11 +31,17 @@ function ConfessionItem(props) {
                 <h3>{props.title}</h3>
                 <p>{props.description}</p>
             </div>
-            <div className={classes.actions}>
-                <button onClick={toggleFavoriteStatusHandler}>
-                  {itemIsFavorite ? 'Remove Favorite' : 'Favorite'}
-                </button>
-            </div>
+              <div className={classes.actions}>
+                  <button onClick={toggleFavoriteStatusHandler}>
+                    {itemIsFavorite ? 'Remove Favorite' : 'Favorite'}
+                  </button>
+                  <button onClick={toggleFavoriteStatusHandler}>
+                    {itemIsFavorite ? 'Unlike' : 'Like'}
+                  </button>
+                  <div className={classes.count}>
+                      Likes: 0
+                  </div>
+              </div>
             </Card>
         </li>
     );
