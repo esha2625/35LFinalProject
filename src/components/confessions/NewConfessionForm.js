@@ -14,6 +14,7 @@ function NewConfessionForm(props){
         const confessionData = {
             title: enteredTitle,
             description: enteredDescription,
+            likes: 0,
         };
 
         props.onAddConfession(confessionData);

@@ -7,7 +7,9 @@ return <ul className={classes.list}>
     key={confession.id} 
     id={confession.id}
     title={confession.title}
-    description={confession.description}/>
+    description={confession.description}
+    likes={confession.likes}
+    />
     ))}
 </ul>
 }
