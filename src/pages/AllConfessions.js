@@ -68,9 +68,9 @@ function AllConfessionsPage(){
   <section>
     <div className = "confessions_wrap">
       <h1>All Confessions</h1>
-      <div class="dropdown">
-        <button class="dropbtn">Sort</button>
-        <div class="dropdown-content">
+      <div className="dropdown">
+        <button className="dropbtn">Sort</button>
+        <div className="dropdown-content">
           <a href="#">Newest</a>
           <a href="#">Oldest</a>
           <a href="#">Most Liked</a>
