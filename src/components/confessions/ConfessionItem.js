@@ -22,6 +22,7 @@ function ConfessionItem(props) {
         id: props.id,
         title: props.title,
         description: props.description,
+        likes: props.likes,
         image: props.image,
         address: props.address,
       });
@@ -45,6 +46,7 @@ function ConfessionItem(props) {
         id: props.id,
         title: props.title,
         description: props.description,
+        likes: props.likes,
         image: props.image,
         address: props.address,
       });
