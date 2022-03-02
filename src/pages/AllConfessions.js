@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import ConfessionList from "../components/confessions/ConfessionList";
 import { getDatabase, ref, child, get } from "firebase/database";
+import "./dropdown.css"
 
 function AllConfessionsPage(){
   const [isLoading, setIsLoading] = useState(true);
@@ -67,6 +68,14 @@ function AllConfessionsPage(){
   <section>
     <div className = "confessions_wrap">
       <h1>All Confessions</h1>
+      <div class="dropdown">
+        <button class="dropbtn">Sort</button>
+        <div class="dropdown-content">
+          <a href="#">Newest</a>
+          <a href="#">Oldest</a>
+          <a href="#">Most Liked</a>
+        </div>
+      </div>
       <ConfessionList confessions={loadedConfessions} />
     </div>
   </section>

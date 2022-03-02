@@ -35,6 +35,8 @@ function NewAccountForm(props){
                     <button>Create Account</button>
                 </div>
             </form>
+
+            
         </div>
     )
 }
