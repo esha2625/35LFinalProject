@@ -69,6 +69,7 @@ function AllConfessionsPage(){
       <h1>All Confessions</h1>
       <ConfessionList confessions={loadedConfessions} />
     </div>
+
   </section>
   );
 }
