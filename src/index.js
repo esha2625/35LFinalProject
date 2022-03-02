@@ -5,15 +5,18 @@ import {BrowserRouter} from 'react-router-dom';
 import './index.css';
 import App from './App';
 import { FavoritesContextProvider } from './store/favorites-context';
+import { LikesContextProvider } from './store/likes-context';
 
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 
 ReactDOM.render(
   <FavoritesContextProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <LikesContextProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </LikesContextProvider>
   </FavoritesContextProvider>,
   document.getElementById('root')
 );
