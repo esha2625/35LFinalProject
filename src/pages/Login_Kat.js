@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {useNavigate} from 'react-router-dom';
+import { getDatabase, ref, set, push, onValue, child, get} from "firebase/database";
+import {useRef} from 'react';
 import './style.css';
 
 const login_header = <h2>Login:</h2>
@@ -15,6 +18,47 @@ const login_header = <h2>Login:</h2>
 
 
 function LoginPage() {
+  const titleInputRef = useRef();
+  const navigate = useNavigate();
+    const descriptionInputRef = useRef();
+  function submitHandler(event) {
+    event.preventDefault();
+    
+
+    const enteredTitle = titleInputRef.current.value;
+    const enteredDescription = descriptionInputRef.current.value;
+
+    const db = getDatabase();
+    const postListRef = ref(db, 'users');
+    const dbRef = ref(getDatabase());
+    get(
+      child(dbRef, 'users/')
+        )
+      .then(response => {
+        
+        return response.val();
+      }).then(responseData => {
+        for (const key of Object.entries(responseData)) {
+            
+            if(key[1].username == enteredTitle && key[1].password == enteredDescription){
+                
+                navigate("/", {replace:true});
+                
+                return;
+                
+            }
+            
+            
+        }
+        
+        
+      })
+    
+      
+    
+
+    
+}
   return (
     <div className="HomePage"> 
       <div className = "typewriter">
@@ -26,15 +70,15 @@ function LoginPage() {
       <h2>Login:</h2> 
       
       <div className="login-form">
-        <form>
+        <form onSubmit={submitHandler}>
           <label>
           Username:
-          <input type="text" name="Username"/>
+          <input type="text" name="Username" required id="title" ref={titleInputRef}/>
           </label>
           <label>
           Password:
           </label>
-          <input type="password" name="Password"/>
+          <input type="password" name="Password" required id="description" ref={descriptionInputRef}/>
           <input type="submit" value="Submit" onClick={redirectForum()}/>
         </form>
       </div>
@@ -62,7 +106,13 @@ class NameForm extends React.Component {
   handleSubmit(event) {
     alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
+   
   }
+ 
+    
+
+    
+
 
   render() {
     return (

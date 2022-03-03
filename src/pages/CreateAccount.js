@@ -1,59 +1,68 @@
 import NewAccountForm from "../components/confessions/createAccount";
 import {useNavigate} from 'react-router-dom';
+import { getDatabase, ref, set, push, onValue, child, get} from "firebase/database";
+import {useRef} from 'react';
 import { useEffect, useState } from "react";
 import './style.css';
 
 function CreateAccountPage() {
     const navigate = useNavigate();
-    var i =1 ;
-    function postrequest(confessionData){
-    fetch(
-        'https://bruinfessions-e55f6-default-rtdb.firebaseio.com/login.json',
-                            {
-                                method: 'POST',
-                                body: JSON.stringify(confessionData),
-                                headers: {
-                                    'Content-Type' : 'application/json'
-                                }
-                            }
-                        ).then(() => {
-                            navigate("/", {replace:true});
-                        });
-                    }
+    const titleInputRef = useRef();
+    const descriptionInputRef = useRef();
+   
+   
+    function submitHandler(event) {
+        event.preventDefault();
+        var i = 1;
+
+        const enteredTitle = titleInputRef.current.value;
+        const enteredDescription = descriptionInputRef.current.value;
+        const db = getDatabase();
+        const dbRef = ref(getDatabase());
+        
+        get(
+      child(dbRef, 'users/')
+        )
+      .then(response => {
+        
+        return response.val();
+      }).then(responseData => {
+        for (const key of Object.entries(responseData)) {
+            
+            if(key[1].username == enteredTitle){
+                
+                navigate("/", {replace:true});
+                i =0;
+                return;
+                
+            }
+            
+            
+        }
+        
+        if(i != 0){
+            const postListRef = ref(db, 'users');
+            const newPostRef = push(postListRef);
+            set(newPostRef, {
+            username: enteredTitle,
+            password: enteredDescription
+
+            });
+            }
+      })
+        
+        
+          
+          
+        
+
+        
+    }
+    
                 
     
 
-     function addConfessionHandler(confessionData) {
-        
-        fetch(
-            'https://bruinfessions-e55f6-default-rtdb.firebaseio.com/login.json'
-            
-        )
-        .then(response => {return response.json();})
-        .then(responseData => {
-            for (const key of Object.entries(responseData)) {
-                console.log(key[1].login);
-                
-                if(key[1].login == confessionData.login){
-                    console.log(key[1].login);
-                    navigate("/", {replace:true});
-                    i =0;
-                    return;
-                    
-                }
-                
-            }
-            if(i != 0){
-                postrequest(confessionData);
-            }
-            
-            
-        });
-        
-        
-        
-                        
-    } 
+     
     
     return <section>
         <div className="HomePage">
@@ -66,15 +75,15 @@ function CreateAccountPage() {
             <h2>Create an Account:</h2> 
 
             <div className="login-form">
-                <form>
+                <form onSubmit={submitHandler}>
                     <label>
                         Username:
-                        <input type="text" name="Username"/>
+                        <input type="text" name="Username" required id="title" ref={titleInputRef}/>
                     </label>
                     <label>
                         Password:
                     </label>
-                        <input type="password" name="Password"/>
+                        <input type="password" name="Password" required id="description" ref={descriptionInputRef}/>
                     <input type="submit" value="Submit"/>
                 </form>
             </div>
