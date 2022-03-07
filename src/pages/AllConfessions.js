@@ -139,12 +139,14 @@ function AllConfessionsPage(){
   <section>
     <div className = "confessions_wrap">
       <h1>All Confessions</h1>
-      <div className="dropdown">
-        <button className="dropbtn">Sort</button>
-        <div className="dropdown-content">
-          <a href="#" onClick= {NewHandler}>Newest</a>
-          <a href="#"onClick= {OldHandler}>Oldest</a>
-          <a href="#" onClick= {LikeHandler}>Most Liked</a>
+      <div className="right-allign">
+        <div className="dropdown">
+          <button className="dropbtn">Sort</button>
+          <div className="dropdown-content">
+            <a href="#" onClick= {NewHandler}>Newest</a>
+            <a href="#"onClick= {OldHandler}>Oldest</a>
+            <a href="#" onClick= {LikeHandler}>Most Liked</a>
+          </div>
         </div>
       </div>
       <ConfessionList confessions={loadedConfessions} />
