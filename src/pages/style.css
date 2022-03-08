@@ -15,13 +15,15 @@ body {
 }
 a {
     color: #1f1f1f;
-    text-decoration: none !important;
     outline: none !important;
     -webkit-transition: all .3s ease-in-out;
     -moz-transition: all .3s ease-in-out;
     -ms-transition: all .3s ease-in-out;
     -o-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
+}
+a:hover {
+    background-color: #DAEBFE;
 }
 h1 {
     text-align: center;
@@ -83,9 +85,9 @@ a {
     color: #222222;
     text-decoration: none;
     outline: none !important;
+    text-decoration: underline;
 }
 a, .btn {
-    text-decoration: none !important;
     outline: none !important;
     -webkit-transition: all .3s ease-in-out;
     -moz-transition: all .3s ease-in-out;
@@ -129,9 +131,10 @@ blockquote {
     padding: 30px;
 }
 button {
-    border: 0;
+    border: 1px;
+    border-style: double;
     margin: 0;
-    padding: 0;
+    padding: 10;
     cursor: pointer;
 }
 .full {
@@ -223,7 +226,6 @@ button {
 a.readmore_bt {
     color: #fff;
     font-weight: 300;
-    text-decoration: underline !important;
 }
 .main_bt:hover, .main_bt:focus {
     background: #114c7d;

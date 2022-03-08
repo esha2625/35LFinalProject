@@ -111,7 +111,7 @@ function CreateAccountPage() {
                     </Button>
 </Form> */}
     <div className = "w 100 text-center mt-2">
-        Already have an account? Log in!
+        Already have an account? <a href = "/login-page">Log In</a>
     </div>
             </div>
             </div>

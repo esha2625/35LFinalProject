@@ -63,7 +63,7 @@ function LoginPage() {
                    {/*} <input type="submit" value="Submit"/>*/}
                 </form> 
     <div className = "w 100 text-center mt-2">
-        Need an account? Go create one!
+        Need an account? Go <a href = "/create-account">create one!</a>
     </div>
             </div>
             </div>
