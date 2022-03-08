@@ -22,9 +22,6 @@ a {
     -o-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
 }
-a:hover {
-    background-color: #DAEBFE;
-}
 h1 {
     text-align: center;
 }
