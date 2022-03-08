@@ -9,7 +9,7 @@ function FavoritesPage() {
   let content;
 
   if (favoritesCtx.totalFavorites === 0) {
-    content = <p>Start favoriting some confessions!</p>
+    content = <p><br></br>Start favoriting some confessions!</p>
   } else {
     content = <ConfessionList confessions={favoritesCtx.favorites} />
   }
