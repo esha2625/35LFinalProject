@@ -1,6 +1,6 @@
 import {useRef} from 'react';
 import Card from '../ui/Card';
-import {Form} from 'react-bootstrap';
+import {form} from 'react-bootstrap';
 
 import classes from './NewConfessionForm.module.css';
 import FavoritesPage from '../../pages/Favorites';
