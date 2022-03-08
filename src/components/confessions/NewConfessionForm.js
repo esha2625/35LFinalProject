@@ -1,8 +1,11 @@
 import {useRef} from 'react';
 import Card from '../ui/Card';
-import classes from './NewConfessionForm.module.css';
+import {Form} from 'react-bootstrap';
 
-function NewConfessionForm(props){
+import classes from './NewConfessionForm.module.css';
+import FavoritesPage from '../../pages/Favorites';
+
+const NewConfessionForm = props => {
     const titleInputRef = useRef();
     const descriptionInputRef = useRef();
     function submitHandler(event) {
@@ -19,7 +22,9 @@ function NewConfessionForm(props){
 
         props.onAddConfession(confessionData);
     }
-    return <Card>
+    return (
+    <div>
+    <Card>
         <form className={classes.form} onSubmit={submitHandler}>
             <div className={classes.control}>
                 <label htmlFor="title">Confession Title</label>
@@ -35,7 +40,8 @@ function NewConfessionForm(props){
                 </div>
             </div>
         </form>
-    </Card>
+    </Card> 
+    </div>
+    )
 }
-
 export default NewConfessionForm;
