@@ -30,7 +30,7 @@ function CreateAccountPage() {
             await signup(enteredTitle, enteredDescription); 
             navigate('/')
         }catch {
-            setError("Failed to create an account.")
+            setError("Failed to create an account. Make sure you are using a @ucla.edu email address.")
         }
         setLoading(false)
 /*
