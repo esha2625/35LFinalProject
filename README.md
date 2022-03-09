@@ -1,6 +1,18 @@
-# Getting Started with Create React App
+# Getting Started with Bruinfessions
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+It also uses react-bootstrap and react-scripts, and firebase as the backend.
+
+To run the app, first open the project directory and run the following:
+### `npm install react-scripts`
+### `npm install react-bootstrap`
+### `npm install firebase`
+
+To open the app on localhost, run
+### `npm start`
+
+Now, you will be able to see and use the Bruinfessions app. Feel free to create an account/log in with a @ucla.edu email address,
+and have fun posting and writing confessions!
 
 ## Available Scripts
 
