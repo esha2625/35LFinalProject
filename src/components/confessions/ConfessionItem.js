@@ -1,4 +1,5 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
+import { useState } from 'react';
 
 import Card from '../ui/Card';
 import classes from './ConfessionItem.module.css';
@@ -42,7 +43,7 @@ function ConfessionItem(props) {
         }
         return post;
       });
-      setLikesCounter(props.likes-1);
+      setLikesCounter(props.likes);
     } else {
       likesCtx.addLike({
         id: props.id,
