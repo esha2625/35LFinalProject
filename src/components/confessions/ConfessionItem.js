@@ -77,7 +77,7 @@ function ConfessionItem(props) {
                     {itemIsLike ? 'Unlike' : 'Like'}
                   </button>
                   <div className={classes.count}>
-                      Likes: {likesCounter}
+                      LikesTesting: {likesCounter}
                   </div>
               </div>
             </Card>
