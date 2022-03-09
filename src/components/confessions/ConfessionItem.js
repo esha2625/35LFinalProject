@@ -10,8 +10,7 @@ import { getDatabase, ref, runTransaction } from 'firebase/database';
 function ConfessionItem(props) {
   const favoritesCtx = useContext(FavoritesContext);
   const likesCtx = useContext(LikesContext);
-  const [likesCounter, setLikesCounter] = useState(props.likes);
-
+  const [likecounter, setlikecounter] = useState(props.likes);
   const itemIsFavorite = favoritesCtx.itemIsFavorite(props.id);
   const itemIsLike = likesCtx.itemIsLike(props.id);
 
@@ -42,7 +41,7 @@ function ConfessionItem(props) {
         }
         return post;
       });
-      setLikesCounter(props.likes-1);
+      setlikecounter(props.likes)
     } else {
       likesCtx.addLike({
         id: props.id,
@@ -56,10 +55,13 @@ function ConfessionItem(props) {
         if ( post ){
           console.log("incrementing");
           post.likes++;
+          
         }
         return post;
       });
-      setLikesCounter(props.likes+1);
+      setlikecounter(props.likes+1)
+      
+
     }
   }
     return(
@@ -77,7 +79,7 @@ function ConfessionItem(props) {
                     {itemIsLike ? 'Unlike' : 'Like'}
                   </button>
                   <div className={classes.count}>
-                      LikesTesting: {likesCounter}
+                      Likes: {likecounter}
                   </div>
               </div>
             </Card>
