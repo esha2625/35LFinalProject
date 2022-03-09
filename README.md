@@ -14,6 +14,10 @@ To open the app on localhost, run
 Now, you will be able to see and use the Bruinfessions app. Feel free to create an account/log in with a @ucla.edu email address,
 and have fun posting and writing confessions!
 
+Bruinfessions would like to give a shoutout to https://www.free-css.com/free-css-templates/page261/spicyo
+as we used their css template.
+
+
 ## Available Scripts from React
 
 In the project directory, you can run:
