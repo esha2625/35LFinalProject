@@ -107,28 +107,32 @@ async function handleLogout()
 
   }
   function LikeHandler(){
-    const db = getDatabase();
-    const oldpost = query(ref(db, 'confessions'), orderByChild("likes"));
-    get(oldpost).then(response => {
-      return response.val();
-    }).then(data => {
-      const confessions = [];
-
-      for (const key in data) {
-        const confession = {
-          id: key,
-          ...data[key]
-      };
-
-      confessions.push(confession);
-    }
     
+    const oldpost = query(ref(db, 'confessions'), orderByChild('likes'));
+   
+   get(oldpost).then(response => {
+     console.log(response.val())
+     return response.val();
+   }).then(data => {
+     const confessions = [];
 
-    
-    setLoadedConfessions(confessions);
-  });
+     for (const key in data) {
+       const confession = {
+         id: key,
+         ...data[key]
+     };
+     console.log(confession)
 
-  }
+     confessions.push(confession);
+   }
+   confessions.sort((a, b) => (a.likes > b.likes) ? 1 : -1)
+   confessions.reverse();
+
+   
+   setLoadedConfessions(confessions);
+ }); 
+
+ }
 
   return (
   <section>
