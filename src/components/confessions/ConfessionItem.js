@@ -27,6 +27,9 @@ function ConfessionItem(props) {
   }
 
   function toggleFavoriteStatusHandler() {
+    if (uid === null){
+      return;
+    }
     const db = getDatabase();
     
     if (itemIsFavorite){
@@ -46,6 +49,9 @@ function ConfessionItem(props) {
   }
 
   function toggleLikeStatusHandler() {
+    if (uid === null){
+      return;
+    }
     const db = getDatabase();
     const postRef = ref(db, 'confessions/' + props.id);
     if (itemIsLike){
