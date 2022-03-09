@@ -32,9 +32,11 @@ function LoginPage() {
                 if (!user.email.toLowerCase().endsWith("ucla.edu")){
                     signOut(auth);
                     console.log("invalid sign in");
+                    return;
                 // TODO: Display something saying that only ucla.edu domains are valid
                 // ------------------------------
                 }
+                navigate('/');
             }).catch((error) => {
                 // Handle Errors here.
                 const errorCode = error.code;
