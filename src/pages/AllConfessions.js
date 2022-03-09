@@ -3,7 +3,7 @@ import ConfessionList from "../components/confessions/ConfessionList";
 import { db } from "../firebase";
 import {useNavigate} from 'react-router-dom';
 import {Button, Alert} from 'react-bootstrap';
-import { getDatabase, ref, child, get, query, orderByKey, orderByChild } from "firebase/database";
+import { getDatabase, ref, child, get, query, orderByKey, orderByChild , orderByValue} from "firebase/database";
 import {useAuth} from '../store/auth-context.js';
 import {PrivateRoute} from '../components/layout/PrivateRoute';
 import "./dropdown.css"
@@ -107,9 +107,11 @@ async function handleLogout()
 
   }
   function LikeHandler(){
-    const db = getDatabase();
-    const oldpost = query(ref(db, 'confessions'), orderByChild("likes"));
+    
+     const oldpost = query(ref(db, 'confessions'), orderByChild('likes'));
+    
     get(oldpost).then(response => {
+      console.log(response.val())
       return response.val();
     }).then(data => {
       const confessions = [];
@@ -119,14 +121,16 @@ async function handleLogout()
           id: key,
           ...data[key]
       };
+      console.log(confession)
 
       confessions.push(confession);
     }
-    
+    confessions.sort((a, b) => (a.likes > b.likes) ? 1 : -1)
+    confessions.reverse();
 
     
     setLoadedConfessions(confessions);
-  });
+  }); 
 
   }
 
