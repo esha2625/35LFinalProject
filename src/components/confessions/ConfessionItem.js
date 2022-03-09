@@ -6,7 +6,9 @@ import classes from './ConfessionItem.module.css';
 import FavoritesContext from '../../store/favorites-context';
 import LikesContext from '../../store/likes-context';
 
-import { getDatabase, ref, runTransaction } from 'firebase/database';
+import { getDatabase, ref, remove, set, runTransaction } from 'firebase/database';
+import { getAuth } from "firebase/auth";
+
 
 function ConfessionItem(props) {
   const favoritesCtx = useContext(FavoritesContext);
@@ -16,10 +18,22 @@ function ConfessionItem(props) {
   const itemIsFavorite = favoritesCtx.itemIsFavorite(props.id);
   const itemIsLike = likesCtx.itemIsLike(props.id);
 
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  var uid = null;
+  if (user) {
+    uid = user.uid;
+  }
+
   function toggleFavoriteStatusHandler() {
+    const db = getDatabase();
+    
     if (itemIsFavorite){
+      remove(ref(db, 'users/' + uid + "/favorites/" + props.id));
       favoritesCtx.removeFavorite(props.id);
     } else {
+      set(ref(db, 'users/' + uid + "/favorites/" + props.id), props);
       favoritesCtx.addFavorite({
         id: props.id,
         title: props.title,
@@ -35,6 +49,7 @@ function ConfessionItem(props) {
     const db = getDatabase();
     const postRef = ref(db, 'confessions/' + props.id);
     if (itemIsLike){
+      remove(ref(db, 'users/' + uid + "/likes/" + props.id));
       likesCtx.removeLike(props.id);
       runTransaction(postRef, (post) => {
         if ( post ){
@@ -45,6 +60,7 @@ function ConfessionItem(props) {
       });
       setLikesCounter(props.likes);
     } else {
+      set(ref(db, 'users/' + uid + "/likes/" + props.id), props);
       likesCtx.addLike({
         id: props.id,
         title: props.title,

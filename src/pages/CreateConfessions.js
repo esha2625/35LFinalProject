@@ -5,20 +5,6 @@ import { getDatabase, ref, push, child, update } from 'firebase/database';
 function CreateConfessionsPage() {
     const navigate = useNavigate();
     function addConfessionHandler(confessionData) {
-        /*
-        fetch(
-            'https://bruinfessions-e55f6-default-rtdb.firebaseio.com/confessions.json',
-            {
-                method: 'POST',
-                body: JSON.stringify(confessionData),
-                headers: {
-                    'Content-Type' : 'application/json'
-                }
-            }
-        ).then(() => {
-            navigate("/", {replace:true});
-        });
-        */
         const db = getDatabase();
         const newPostKey = push(child(ref(db), 'confessions')).key;
         const updates = {};
