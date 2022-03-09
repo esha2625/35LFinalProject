@@ -1,37 +1,33 @@
 import {useState, useEffect} from 'react';
 import ConfessionList from "../components/confessions/ConfessionList";
+import { db } from "../firebase";
+import {useNavigate} from 'react-router-dom';
+import {Button, Alert} from 'react-bootstrap';
 import { getDatabase, ref, child, get, query, orderByKey, orderByChild } from "firebase/database";
+import {useAuth} from '../store/auth-context.js';
+import {PrivateRoute} from '../components/layout/PrivateRoute';
 import "./dropdown.css"
 
 function AllConfessionsPage(){
   const [isLoading, setIsLoading] = useState(true);
   const [loadedConfessions, setLoadedConfessions] = useState([]);
+  const [error, setError] = useState('');
+  const {currentUser, logout} = useAuth();
+  const navigate = useNavigate();
 
+
+async function handleLogout()
+{
+  setError('')
+  try{
+    await logout()
+    navigate('/login-page')
+  } catch {
+    setError("Failed to Logout. You're stuck in Confessional...")
+  }
+}
   useEffect(() => {
     setIsLoading(true);
-    /*
-    fetch(
-      'https://bruinfessions-e55f6-default-rtdb.firebaseio.com/confessions.json'
-    )
-      .then(response => {
-        return response.json();
-      }).then(data => {
-        const confessions = [];
-
-        for (const key in data) {
-          const confession = {
-              id: key,
-              ...data[key]
-          };
-
-          confessions.push(confession);
-        }
-
-        setIsLoading(false);
-        setLoadedConfessions(confessions);
-      });
-
-      */
     const dbRef = ref(getDatabase());
     get(
       child(dbRef, 'confessions/')
@@ -64,7 +60,6 @@ function AllConfessionsPage(){
     );
   }
   function NewHandler(){
-    
     const db = getDatabase();
     const newpost = query(ref(db, 'confessions'), orderByKey());
     get(newpost).then(response => {
@@ -139,16 +134,24 @@ function AllConfessionsPage(){
   <section>
     <div className = "confessions_wrap">
       <h1>All Confessions</h1>
-      <div className="dropdown">
-        <button className="dropbtn">Sort</button>
-        <div className="dropdown-content">
-          <a href="#" onClick= {NewHandler}>Newest</a>
-          <a href="#"onClick= {OldHandler}>Oldest</a>
-          <a href="#" onClick= {LikeHandler}>Most Liked</a>
+      {error && <Alert variant = "danger">{error}</Alert>} 
+      <div className="right-allign">
+        <div className="dropdown">
+          <button className="dropbtn">Sort</button>
+          <div className="dropdown-content">
+            <a href="#" onClick= {OldHandler}>Newest</a>
+            <a href="#"onClick= {NewHandler}>Oldest</a>
+            <a href="#" onClick= {LikeHandler}>Most Liked</a>
+          </div>
         </div>
       </div>
       <ConfessionList confessions={loadedConfessions} />
     </div>
+    <div className="w-100 text-center mt-2">
+        <Button variant="link" onClick={handleLogout}>
+          Log Out
+        </Button>
+      </div>
 
   </section>
   );
