@@ -14,7 +14,7 @@ To open the app on localhost, run
 Now, you will be able to see and use the Bruinfessions app. Feel free to create an account/log in with a @ucla.edu email address,
 and have fun posting and writing confessions!
 
-## Available Scripts
+## Available Scripts from React
 
 In the project directory, you can run:
 
