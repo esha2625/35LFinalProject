@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 import Card from '../ui/Card';
 import classes from './ConfessionItem.module.css';
@@ -10,6 +10,7 @@ import { getDatabase, ref, runTransaction } from 'firebase/database';
 function ConfessionItem(props) {
   const favoritesCtx = useContext(FavoritesContext);
   const likesCtx = useContext(LikesContext);
+  const [likesCounter, setLikesCounter] = useState(props.likes);
 
   const itemIsFavorite = favoritesCtx.itemIsFavorite(props.id);
   const itemIsLike = likesCtx.itemIsLike(props.id);
@@ -41,6 +42,7 @@ function ConfessionItem(props) {
         }
         return post;
       });
+      setLikesCounter(props.likes-1);
     } else {
       likesCtx.addLike({
         id: props.id,
@@ -57,7 +59,7 @@ function ConfessionItem(props) {
         }
         return post;
       });
-
+      setLikesCounter(props.likes+1);
     }
   }
     return(
@@ -75,7 +77,7 @@ function ConfessionItem(props) {
                     {itemIsLike ? 'Unlike' : 'Like'}
                   </button>
                   <div className={classes.count}>
-                      Likes: {props.likes}
+                      Likes: {likesCounter}
                   </div>
               </div>
             </Card>
