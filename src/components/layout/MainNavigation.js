@@ -5,8 +5,10 @@ import classes from './MainNavigation.module.css';
 function MainNavigation() {
     return (
     <header className={classes.header}>
-        <div className={classes.logo}>Bruinfessions</div>
+                 <div className={classes.logoimage}><img src="/bruinfessionslogo.png" alt="Bruinfessions" width="100ref" height="5ref"/></div> 
+         <div className={classes.logo}>Bruinfessions</div>
         <nav>
+         <div>
             <ul>
                 <li>
                     <Link to = '/'>All Confessions</Link>
@@ -24,6 +26,7 @@ function MainNavigation() {
                     <Link to = '/create-account'>Create Account</Link>
                 </li>
             </ul>
+            </div>
         </nav>
     </header>
     );

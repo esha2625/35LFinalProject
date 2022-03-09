@@ -43,6 +43,7 @@ export function AuthProvider({children})
         login,
         logout
     }
+    
     return(
         <AuthContext.Provider value={value}>
             {!loading && children}
