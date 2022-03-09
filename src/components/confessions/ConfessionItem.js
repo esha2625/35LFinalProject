@@ -6,7 +6,7 @@ import classes from './ConfessionItem.module.css';
 import FavoritesContext from '../../store/favorites-context';
 import LikesContext from '../../store/likes-context';
 
-import { getDatabase, ref, remove, set, runTransaction } from 'firebase/database';
+import { getDatabase, get, child, ref, remove, set, runTransaction } from 'firebase/database';
 import { getAuth } from "firebase/auth";
 
 
@@ -14,10 +14,13 @@ function ConfessionItem(props) {
   const favoritesCtx = useContext(FavoritesContext);
   const likesCtx = useContext(LikesContext);
   const [likesCounter, setLikesCounter] = useState(props.likes);
+  const [itemIsFavorite, setItemIsFavorite] = useState(false);
+  const [itemIsLike, setItemIsLike] = useState(false);
 
-  const itemIsFavorite = favoritesCtx.itemIsFavorite(props.id);
-  const itemIsLike = likesCtx.itemIsLike(props.id);
+  //const itemIsFavorite = favoritesCtx.itemIsFavorite(props.id);
+  //const itemIsLike = likesCtx.itemIsLike(props.id);
 
+  const db = getDatabase();
   const auth = getAuth();
   const user = auth.currentUser;
 
@@ -25,26 +28,43 @@ function ConfessionItem(props) {
   if (user) {
     uid = user.uid;
   }
+  const dbRef = ref(getDatabase());
+  get(child(dbRef, 'users/' + uid + "/favorites/" + props.id)).then((snapshot) => {
+    if (snapshot.exists()) {
+      setItemIsFavorite(true);
+    } else {
+      setItemIsFavorite(false);
+    }
+  });
+
+  get(child(dbRef, 'users/' + uid + "/likes/" + props.id)).then((snapshot) => {
+    if (snapshot.exists()) {
+      setItemIsLike(true);
+    } else {
+      setItemIsLike(false);
+    }
+  });
 
   function toggleFavoriteStatusHandler() {
     if (uid === null){
       return;
     }
-    const db = getDatabase();
     
     if (itemIsFavorite){
       remove(ref(db, 'users/' + uid + "/favorites/" + props.id));
-      favoritesCtx.removeFavorite(props.id);
+      //favoritesCtx.removeFavorite(props.id);
+      setItemIsFavorite(false);
     } else {
       set(ref(db, 'users/' + uid + "/favorites/" + props.id), props);
-      favoritesCtx.addFavorite({
+      /*favoritesCtx.addFavorite({
         id: props.id,
         title: props.title,
         description: props.description,
         likes: props.likes,
         image: props.image,
         address: props.address,
-      });
+      });*/
+      setItemIsFavorite(true);
     }
   }
 
@@ -64,7 +84,7 @@ function ConfessionItem(props) {
         }
         return post;
       });
-      setLikesCounter(props.likes);
+      setLikesCounter(likesCounter - 1);
     } else {
       set(ref(db, 'users/' + uid + "/likes/" + props.id), props);
       likesCtx.addLike({
@@ -82,7 +102,7 @@ function ConfessionItem(props) {
         }
         return post;
       });
-      setLikesCounter(props.likes+1);
+      setLikesCounter(likesCounter + 1);
     }
   }
     return(
