@@ -5,6 +5,7 @@ import classes from './ConfessionItem.module.css';
 
 import { getDatabase, get, child, ref, remove, set, runTransaction } from 'firebase/database';
 import { getAuth } from "firebase/auth";
+import {useAuth} from '../../store/auth-context.js';
 
 
 function ConfessionItem(props) {
@@ -14,6 +15,7 @@ function ConfessionItem(props) {
 
   const db = getDatabase();
   const auth = getAuth();
+  const {currentUser, logout} = useAuth();
   const user = auth.currentUser;
 
   var uid = null;
@@ -81,6 +83,19 @@ function ConfessionItem(props) {
       setLikesCounter(likesCounter + 1);
     }
   }
+
+  var button_content;
+  if (currentUser) {
+    button_content = (<section><button onClick={toggleFavoriteStatusHandler}>
+      {itemIsFavorite ? 'Remove Favorite' : 'Favorite'}
+    </button>
+    <button onClick={toggleLikeStatusHandler}>
+      {itemIsLike ? 'Unlike' : 'Like'}
+    </button></section>);
+  } else {
+    button_content = "";
+  }
+
   return (
     <li className={classes.item}>
       <Card>
@@ -89,12 +104,8 @@ function ConfessionItem(props) {
           <p>{props.description}</p>
         </div>
         <div className={classes.actions}>
-          <button onClick={toggleFavoriteStatusHandler}>
-            {itemIsFavorite ? 'Remove Favorite' : 'Favorite'}
-          </button>
-          <button onClick={toggleLikeStatusHandler}>
-            {itemIsLike ? 'Unlike' : 'Like'}
-          </button>
+          {button_content}
+          
           <div className={classes.count}>
             Likes: {likesCounter}
           </div>
