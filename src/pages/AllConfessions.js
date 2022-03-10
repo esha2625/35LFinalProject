@@ -7,6 +7,9 @@ import { getDatabase, ref, child, get, query, orderByKey, orderByChild } from "f
 import {useAuth} from '../store/auth-context.js';
 import {PrivateRoute} from '../components/layout/PrivateRoute';
 import "./dropdown.css"
+import {where, collection} from "firebase/firestore";
+
+
 
 function AllConfessionsPage(){
   const [isLoading, setIsLoading] = useState(true);
@@ -80,11 +83,10 @@ async function handleLogout()
     setLoadedConfessions(confessions);
   });
   }
-  function OldHandler(){
-    
+  function OldHandler() {
     const db = getDatabase();
-    const oldpost = query(ref(db, 'confessions'), orderByKey());
-    get(oldpost).then(response => {
+    const newpost = query(ref(db, 'confessions'), orderByKey());
+    get(newpost).then(response => {
       return response.val();
     }).then(data => {
       const confessions = [];
@@ -93,18 +95,12 @@ async function handleLogout()
         const confession = {
           id: key,
           ...data[key]
-      };
+        };
 
-      confessions.push(confession);
-    }
-    confessions.reverse();
-    console.log(confessions);
-
-    
-    setLoadedConfessions(confessions);
-  });
-    
-
+        confessions.push(confession);
+      }
+      setLoadedConfessions(confessions);
+    });
   }
   function LikeHandler(){
     
@@ -134,11 +130,36 @@ async function handleLogout()
 
  }
 
+ function SearchHandler(){
+  var search_parameter = "Derek Hua <33";
+  const db = getDatabase();
+
+  const newpost = query(ref(db, 'confessions'), orderByKey());
+    get(newpost).then(response => {
+      return response.val();
+    }).then(data => {
+      const confessions = [];
+      
+      for (const key in data) {
+        const confession = {
+          id: key,
+          ...data[key]
+        };
+        console.log(confession[3]);
+        if (confession[3] == search_parameter) {
+          confessions.push(confession);
+        }
+      }
+      setLoadedConfessions(confessions);
+    });
+}
+
   return (
   <section>
     <div className = "confessions_wrap">
       <h1>All Confessions</h1>
       {error && <Alert variant = "danger">{error}</Alert>} 
+
       <div className="right-allign">
         <div className="dropdown">
           <button className="dropbtn">Sort</button>
@@ -148,6 +169,10 @@ async function handleLogout()
             <a href="#" onClick= {LikeHandler}>Most Liked</a>
           </div>
         </div>
+      </div>
+
+      <div className="search">
+            <input onChange = {SearchHandler} placeholder="Search By Post Title"/>
       </div>
       <ConfessionList confessions={loadedConfessions} />
     </div>
