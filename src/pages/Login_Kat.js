@@ -90,13 +90,13 @@ function LoginPage() {
             <h2>Sign In and Start Confessing</h2>
             <div className="vertical-center">
                 <div className="button-login">
-                    <h3>{failedSignIn ? "Must use login with UCLA account" : ""} </h3>
                     <button onClick={signIn}>
-                        Log In
+                        Login
                     </button>
                     
                 </div>
             </div>
+            <h3>{failedSignIn ? "Must Login with UCLA account" : ""} </h3>
 
         </div>
     </section>
