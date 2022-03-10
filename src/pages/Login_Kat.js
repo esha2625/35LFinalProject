@@ -13,6 +13,8 @@ import './style.css';
 const login_header = <h2>Login:</h2>
 
 function LoginPage() {
+    const [failedSignIn, setFailedSignIn] = useState(false);
+
     const navigate = useNavigate();
     const titleInputRef = useRef();
     const descriptionInputRef = useRef();
@@ -32,10 +34,12 @@ function LoginPage() {
                 if (!user.email.toLowerCase().endsWith("ucla.edu")){
                     signOut(auth);
                     console.log("invalid sign in");
+                    setFailedSignIn(true);
                     return;
                 // TODO: Display something saying that only ucla.edu domains are valid
                 // ------------------------------
                 }
+                setFailedSignIn(false);
                 navigate('/');
             }).catch((error) => {
                 // Handle Errors here.
@@ -79,9 +83,11 @@ function LoginPage() {
             <h2>Sign In and Start Confessing</h2>
             <div className="vertical-center">
                 <div className="button-login">
+                    <h3>{failedSignIn ? "Must use login with UCLA account" : ""} </h3>
                     <button onClick={signIn}>
                         Log In
                     </button>
+                    
                 </div>
             </div>
         </div>
