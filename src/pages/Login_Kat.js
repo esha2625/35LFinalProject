@@ -18,8 +18,13 @@ function LoginPage() {
     const navigate = useNavigate();
     const titleInputRef = useRef();
     const descriptionInputRef = useRef();
-
     const provider = new GoogleAuthProvider();
+    var account_error = "";
+    if (useState == "invalid_email") {
+        account_error = "ERROR: Must Use @ucla.edu Email Address to Sign In"
+    } else {
+        account_error = "";
+    }
 
     const auth = getAuth();
     function signIn() {
@@ -40,6 +45,7 @@ function LoginPage() {
                 // ------------------------------
                 }
                 setFailedSignIn(false);
+
                 navigate('/');
             }).catch((error) => {
                 // Handle Errors here.
@@ -50,6 +56,7 @@ function LoginPage() {
                 // The AuthCredential type that was used.
                 const credential = GoogleAuthProvider.credentialFromError(error);
                 // ...
+
             });
     }
 
@@ -90,6 +97,7 @@ function LoginPage() {
                     
                 </div>
             </div>
+
         </div>
     </section>
 }
