@@ -6,6 +6,23 @@ import {useNavigate} from 'react-router-dom';
 import classes from './MainNavigationLoggedIn.module.css';
 
 function MainNavigation() {
+    const [isLoading, setIsLoading] = useState(true);
+    const [loadedConfessions, setLoadedConfessions] = useState([]);
+    const [error, setError] = useState('');
+    const {currentUser, logout} = useAuth();
+    const navigate = useNavigate();
+  
+
+    async function handleLogout()
+    {
+        setError('')
+        try{
+            await logout()
+            navigate('/login-page')
+        } catch {
+            setError("Failed to Logout. You're stuck in Confessional...")
+        }
+    }
 
     return (
     <header className={classes.header}>
@@ -25,7 +42,7 @@ function MainNavigation() {
                     <Link to = '/favorites'>Favorites</Link>
                 </li>
                 <li>
-                    <Link to = '/'>Logout</Link>
+                    <Link to = '/logout-page'>Logout</Link>
                 </li>
             </ul>
             </div>
