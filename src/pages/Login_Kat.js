@@ -16,8 +16,13 @@ function LoginPage() {
     const navigate = useNavigate();
     const titleInputRef = useRef();
     const descriptionInputRef = useRef();
-
     const provider = new GoogleAuthProvider();
+    var account_error = "";
+    if (useState == "invalid_email") {
+        account_error = "ERROR: Must Use @ucla.edu Email Address to Sign In"
+    } else {
+        account_error = "";
+    }
 
     const auth = getAuth();
     function signIn() {
@@ -32,10 +37,10 @@ function LoginPage() {
                 if (!user.email.toLowerCase().endsWith("ucla.edu")){
                     signOut(auth);
                     console.log("invalid sign in");
+                    account_error = "ERROR: Must Use a @UCLA.edu To Sign In"
                     return;
                 // TODO: Display something saying that only ucla.edu domains are valid
-                // ------------------------------
-                }
+            }
                 navigate('/');
             }).catch((error) => {
                 // Handle Errors here.
@@ -46,6 +51,7 @@ function LoginPage() {
                 // The AuthCredential type that was used.
                 const credential = GoogleAuthProvider.credentialFromError(error);
                 // ...
+
             });
     }
 
@@ -84,6 +90,7 @@ function LoginPage() {
                     </button>
                 </div>
             </div>
+
         </div>
     </section>
 }
