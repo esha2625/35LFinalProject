@@ -54,7 +54,9 @@ function FavoritesPage() {
 
   return (
     <section>
-      <h1>My Favorites</h1>
+      <h1><br></br></h1>
+      <h1></h1><h1></h1>
+      <h1>Start Favoriting Some Confessions!</h1>
       <ConfessionList confessions={loadedConfessions} />
     </section>
   );
