@@ -4,9 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 It also uses react-bootstrap and react-scripts, and firebase as the backend.
 
 To run the app, first open the project directory and run the following:
-### `npm install react-scripts`
-### `npm install react-bootstrap`
-### `npm install firebase`
+### `npm install`
 
 To open the app on localhost, run
 ### `npm start`

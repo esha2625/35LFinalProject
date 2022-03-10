@@ -129,11 +129,22 @@ blockquote {
     padding: 30px;
 }
 button {
-    border: 1px;
-    border-style: double;
-    margin: 0;
-    padding: 10;
+    font: inherit;
     cursor: pointer;
+    color: white;
+    border: 1px solid #000000;
+    background-color: #005587;
+    vertical-align: middle;
+    height: -moz-fit-content;
+    height: fit-content;
+    padding: 0.5rem 1.5rem;
+    margin-right: 0.5rem;
+    border-radius: 4px;
+}
+button:hover,
+button:active {
+  background-color: #ffd700;
+  border-color: #2774ae;
 }
 .full {
     float: left;
@@ -984,3 +995,11 @@ input[type=password] {
 .page_header {
     margin-top: 100px;
 }
+
+.vertical-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4rem;
+}
+

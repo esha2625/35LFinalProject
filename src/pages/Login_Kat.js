@@ -77,10 +77,13 @@ function LoginPage() {
             </div>
 
             <h2>Sign In and Start Confessing</h2>
-            <button onClick={signIn}>
-                Log In
-            </button>
-
+            <div className="vertical-center">
+                <div className="button-login">
+                    <button onClick={signIn}>
+                        Log In
+                    </button>
+                </div>
+            </div>
         </div>
     </section>
 }

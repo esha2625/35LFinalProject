@@ -13,7 +13,6 @@
   font-size: 2rem;
   color: gold;
   font-weight: bold;
-  margin-left: 0;
 }
 
 .logoimage {
@@ -50,4 +49,8 @@
   border-radius: 12px;
   padding: 0 1rem;
   margin-left: 0.5rem;
+}
+
+.logo_wrap {
+  display: inline-flex;
 }
