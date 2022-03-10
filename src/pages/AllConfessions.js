@@ -77,7 +77,7 @@ async function handleLogout()
       };
 
       confessions.push(confession);
-    }console.log(confessions);
+    } console.log(confessions);
 
     
     setLoadedConfessions(confessions);
@@ -145,7 +145,7 @@ async function handleLogout()
           id: key,
           ...data[key]
         };
-        console.log(confession[3]);
+        console.log(confession[3]); // TODO, grab title parameter
         if (confession[3] == search_parameter) {
           confessions.push(confession);
         }
