@@ -173,8 +173,8 @@ function AllConfessionsPage(){
         <div className="dropdown">
           <button className="dropbtn">Sort</button>
           <div className="dropdown-content">
-            <a href="#" onClick= {OldHandler}>Newest</a>
-            <a href="#"onClick= {NewHandler}>Oldest</a>
+            <a href="#" onClick= {NewHandler}>Newest</a>
+            <a href="#"onClick= {OldHandler}>Oldest</a>
             <a href="#" onClick= {LikeHandler}>Most Liked</a>
           </div>
         </div>
