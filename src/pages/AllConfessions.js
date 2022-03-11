@@ -17,7 +17,15 @@ function AllConfessionsPage(){
   const [error, setError] = useState('');
   const {currentUser, logout} = useAuth();
   const navigate = useNavigate();
-
+  const [inputText, setInputText] = useState("");
+  
+  let inputHandler = (e) => {
+    //convert input text to lower case
+    var lowerCase = e.target.value.toLowerCase();
+    setInputText(lowerCase);
+    console.log("Input Text: " + inputText);
+    SearchHandler();
+  };
 
 async function handleLogout()
 {
@@ -77,7 +85,7 @@ async function handleLogout()
       };
 
       confessions.push(confession);
-    } console.log(confessions);
+    }console.log(confessions);
 
     
     setLoadedConfessions(confessions);
@@ -117,7 +125,7 @@ async function handleLogout()
          id: key,
          ...data[key]
      };
-     console.log(confession)
+     console.log(child(confession))
 
      confessions.push(confession);
    }
@@ -130,28 +138,33 @@ async function handleLogout()
 
  }
 
- function SearchHandler(){
-  var search_parameter = "Derek Hua <33";
-  const db = getDatabase();
+ function SearchHandler() {
 
-  const newpost = query(ref(db, 'confessions'), orderByKey());
-    get(newpost).then(response => {
-      return response.val();
-    }).then(data => {
-      const confessions = [];
-      
-      for (const key in data) {
-        const confession = {
+  const db = getDatabase();
+  const search = query(ref(db, 'confessions'), orderByKey());
+  get(search).then(response => {
+    return response.val();
+  }).then(data => {
+    const confessions = [];
+    
+    var confession;
+    for (const key in data) {
+      console.log(data[key].title);
+      if (data[key].title.toLowerCase().includes(inputText)) {
+        confession = {
           id: key,
           ...data[key]
         };
-        console.log(confession[3]); // TODO, grab title parameter
-        if (confession[3] == search_parameter) {
-          confessions.push(confession);
-        }
-      }
-      setLoadedConfessions(confessions);
-    });
+      confessions.push(confession);
+    };
+
+
+  } console.log(confessions);
+
+  
+  setLoadedConfessions(confessions);
+});
+
 }
 
   return (
@@ -172,7 +185,7 @@ async function handleLogout()
       </div>
 
       <div className="search">
-            <input onChange = {SearchHandler} placeholder="Search By Post Title"/>
+            <input onChange = {inputHandler} placeholder="Search By Post Title"/>
       </div>
       <ConfessionList confessions={loadedConfessions} />
     </div>
