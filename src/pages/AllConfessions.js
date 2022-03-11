@@ -1,31 +1,23 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import ConfessionList from "../components/confessions/ConfessionList";
 import { db } from "../firebase";
-import {useNavigate} from 'react-router-dom';
-import {Button, Alert} from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { Button, Alert } from 'react-bootstrap';
 import { getDatabase, ref, child, get, query, orderByKey, orderByChild } from "firebase/database";
-import {useAuth} from '../store/auth-context.js';
-import {PrivateRoute} from '../components/layout/PrivateRoute';
+import { useAuth } from '../store/auth-context.js';
+import { PrivateRoute } from '../components/layout/PrivateRoute';
 import "./dropdown.css"
-import {where, collection} from "firebase/firestore";
+import { where, collection } from "firebase/firestore";
 
 
 
-function AllConfessionsPage(){
+function AllConfessionsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadedConfessions, setLoadedConfessions] = useState([]);
   const [error, setError] = useState('');
-  const {currentUser, logout} = useAuth();
+  const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
-  const [inputText, setInputText] = useState("");
-  
-  let inputHandler = (e) => {
-    //convert input text to lower case
-    var lowerCase = e.target.value.toLowerCase();
-    setInputText(lowerCase);
-    console.log("Input Text: " + inputText);
-    SearchHandler();
-  };
+
 
   async function handleLogout() {
     setError('')
@@ -55,10 +47,11 @@ function AllConfessionsPage(){
 
           confessions.push(confession);
         }
-        confessions.reverse();
+
         setIsLoading(false);
         setLoadedConfessions(confessions);
       });
+
   }, []);
 
   if (isLoading) {
@@ -68,6 +61,29 @@ function AllConfessionsPage(){
       </section>
     );
   }
+  
+  function NewHandler() {
+    const db = getDatabase();
+    const newpost = query(ref(db, 'confessions'), orderByKey());
+    get(newpost).then(response => {
+      return response.val();
+    }).then(data => {
+      const confessions = [];
+
+      for (const key in data) {
+        const confession = {
+          id: key,
+          ...data[key]
+        };
+
+        confessions.push(confession);
+      } console.log(confessions);
+
+      confessions.reverse();
+      setLoadedConfessions(confessions);
+    });
+  }
+
   function OldHandler() {
     const db = getDatabase();
     const newpost = query(ref(db, 'confessions'), orderByKey());
@@ -87,29 +103,7 @@ function AllConfessionsPage(){
       setLoadedConfessions(confessions);
     });
   }
-  function NewHandler() {
 
-    const db = getDatabase();
-    const oldpost = query(ref(db, 'confessions'), orderByKey());
-    get(oldpost).then(response => {
-      return response.val();
-    }).then(data => {
-      const confessions = [];
-
-      for (const key in data) {
-        const confession = {
-          id: key,
-          ...data[key]
-        };
-
-        confessions.push(confession);
-      }
-      confessions.reverse();
-      setLoadedConfessions(confessions);
-    });
-
-
-  }
   function LikeHandler() {
 
     const oldpost = query(ref(db, 'confessions'), orderByChild('likes'));
@@ -125,69 +119,67 @@ function AllConfessionsPage(){
           id: key,
           ...data[key]
         };
+        console.log(confession)
+
         confessions.push(confession);
       }
       confessions.sort((a, b) => (a.likes > b.likes) ? 1 : -1)
       confessions.reverse();
+
+
       setLoadedConfessions(confessions);
     });
 
   }
 
- function SearchHandler() {
+  function SearchHandler() {
+    var search_parameter = "Derek Hua <33";
+    const db = getDatabase();
 
-  const db = getDatabase();
-  const search = query(ref(db, 'confessions'));
-  get(search).then(response => {
-    return response.val();
-  }).then(data => {
-    const confessions = [];
-    
-    var confession;
-    for (const key in data) {
-      console.log(data[key].description);
-      if (data[key].title.toLowerCase().indexOf(inputText) !== -1 ||
-      data[key].description.toLowerCase().indexOf(inputText) !== -1) {
-        confession = {
+    const newpost = query(ref(db, 'confessions'), orderByChild('likes'));
+    get(newpost).then(response => {
+      return response.val();
+    }).then(data => {
+      const confessions = [];
+
+      for (const key in data) {
+        const confession = {
           id: key,
           ...data[key]
         };
-      confessions.push(confession);
-    };
-
-
-  } console.log(confessions);
-
-  
-  setLoadedConfessions(confessions);
-});
-
-}
+        console.log(confession[3]); // TODO, grab title parameter
+        if (confession[3] == search_parameter) {
+          confessions.push(confession);
+        }
+      }
+      setLoadedConfessions(confessions);
+    });
+  }
 
   return (
-  <section>
-    <div className = "confessions_wrap">
-      <h1>All Confessions</h1>
-      {error && <Alert variant = "danger">{error}</Alert>} 
+    <section>
+      <div className="confessions_wrap">
+        <h1>All Confessions</h1>
+        {error && <Alert variant="danger">{error}</Alert>}
 
-      <div className="right-allign">
-        <div className="dropdown">
-          <button className="dropbtn">Sort</button>
-          <div className="dropdown-content">
-            <a href="#" onClick= {NewHandler}>Newest</a>
-            <a href="#"onClick= {OldHandler}>Oldest</a>
-            <a href="#" onClick= {LikeHandler}>Most Liked</a>
+        <div className="right-allign">
+          <div className="dropdown">
+            <button className="dropbtn">Sort</button>
+            <div className="dropdown-content">
+              <a href="#" onClick={NewHandler}>Newest</a>
+              <a href="#" onClick={OldHandler}>Oldest</a>
+              <a href="#" onClick={LikeHandler}>Most Liked</a>
+            </div>
           </div>
         </div>
+
+        <div className="search">
+          <input onChange={SearchHandler} placeholder="Search By Post Title or Contents" />
+        </div>
+        <ConfessionList confessions={loadedConfessions} />
       </div>
 
-      <div className="search">
-            <input onKeyUp={inputHandler} placeholder="Search By Post Content"/>
-      </div>
-      <ConfessionList confessions={loadedConfessions} />
-    </div>
-
-  </section>
+    </section>
   );
 }
 
