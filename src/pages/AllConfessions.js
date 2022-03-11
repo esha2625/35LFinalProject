@@ -181,7 +181,7 @@ function AllConfessionsPage(){
       </div>
 
       <div className="search">
-            <input onChange={inputHandler} placeholder="Search By Post Title"/>
+            <input onKeyUp={inputHandler} placeholder="Search By Post Title"/>
       </div>
       <ConfessionList confessions={loadedConfessions} />
     </div>
