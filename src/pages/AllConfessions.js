@@ -182,7 +182,7 @@ function AllConfessionsPage() {
         </div>
 
         <div className="search">
-          <input onKeyUp={inputHandler} placeholder="Search By Post Content and Title" />
+          <input onKeyUp={inputHandler} placeholder="Search For Post Content" />
         </div>
         <ConfessionList confessions={loadedConfessions} />
       </div>
