@@ -85,7 +85,6 @@ function ConfessionItem(props) {
   }
 
   var button_content;
-  console.log("test: " + window.location.pathname);
   if (window.location.pathname == '/favorites' && currentUser) {
     button_content = (<section><button onClick={toggleFavoriteStatusHandler}>
       {itemIsFavorite ? 'Remove Favorite' : 'Favorite'}
