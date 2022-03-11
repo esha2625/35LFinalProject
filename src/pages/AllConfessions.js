@@ -145,8 +145,9 @@ function AllConfessionsPage(){
     
     var confession;
     for (const key in data) {
-      console.log(data[key].title);
-      if (data[key].title.toLowerCase().indexOf(inputText) !== -1) {
+      console.log(data[key].description);
+      if (data[key].title.toLowerCase().indexOf(inputText) !== -1 ||
+      data[key].description.toLowerCase().indexOf(inputText) !== -1) {
         confession = {
           id: key,
           ...data[key]
@@ -181,7 +182,7 @@ function AllConfessionsPage(){
       </div>
 
       <div className="search">
-            <input onKeyUp={inputHandler} placeholder="Search By Post Title"/>
+            <input onKeyUp={inputHandler} placeholder="Search By Post Content"/>
       </div>
       <ConfessionList confessions={loadedConfessions} />
     </div>
