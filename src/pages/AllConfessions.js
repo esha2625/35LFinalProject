@@ -137,7 +137,7 @@ function AllConfessionsPage(){
  function SearchHandler() {
 
   const db = getDatabase();
-  const search = query(ref(db, 'confessions'), orderByKey());
+  const search = query(ref(db, 'confessions'));
   get(search).then(response => {
     return response.val();
   }).then(data => {
