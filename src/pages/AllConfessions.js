@@ -150,7 +150,7 @@ async function handleLogout()
     var confession;
     for (const key in data) {
       console.log(data[key].title);
-      if (data[key].title.toLowerCase().includes(inputText)) {
+      if (data[key].title.toLowerCase().indexOf(inputText) !== -1) {
         confession = {
           id: key,
           ...data[key]
@@ -185,7 +185,7 @@ async function handleLogout()
       </div>
 
       <div className="search">
-            <input onChange = {inputHandler} placeholder="Search By Post Title"/>
+            <input onChange={inputHandler} placeholder="Search By Post Title"/>
       </div>
       <ConfessionList confessions={loadedConfessions} />
     </div>
