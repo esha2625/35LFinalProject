@@ -27,16 +27,15 @@ function AllConfessionsPage(){
     SearchHandler();
   };
 
-async function handleLogout()
-{
-  setError('')
-  try{
-    await logout()
-    navigate('/login-page')
-  } catch {
-    setError("Failed to Logout. You're stuck in Confessional...")
+  async function handleLogout() {
+    setError('')
+    try {
+      await logout()
+      navigate('/login-page')
+    } catch {
+      setError("Failed to Logout. You're stuck in Confessional...")
+    }
   }
-}
   useEffect(() => {
     setIsLoading(true);
     const dbRef = ref(getDatabase());
@@ -52,15 +51,14 @@ async function handleLogout()
           const confession = {
             id: key,
             ...data[key]
-        };
+          };
 
-        confessions.push(confession);
-      }
-
-      setIsLoading(false);
-      setLoadedConfessions(confessions);
-  });
-    
+          confessions.push(confession);
+        }
+        confessions.reverse();
+        setIsLoading(false);
+        setLoadedConfessions(confessions);
+      });
   }, []);
 
   if (isLoading) {
@@ -69,27 +67,6 @@ async function handleLogout()
         <p>Loading...</p>
       </section>
     );
-  }
-  function NewHandler(){
-    const db = getDatabase();
-    const newpost = query(ref(db, 'confessions'), orderByKey());
-    get(newpost).then(response => {
-      return response.val();
-    }).then(data => {
-      const confessions = [];
-
-      for (const key in data) {
-        const confession = {
-          id: key,
-          ...data[key]
-      };
-
-      confessions.push(confession);
-    }console.log(confessions);
-
-    
-    setLoadedConfessions(confessions);
-  });
   }
   function OldHandler() {
     const db = getDatabase();
@@ -110,33 +87,52 @@ async function handleLogout()
       setLoadedConfessions(confessions);
     });
   }
-  function LikeHandler(){
-    
+  function NewHandler() {
+
+    const db = getDatabase();
+    const oldpost = query(ref(db, 'confessions'), orderByKey());
+    get(oldpost).then(response => {
+      return response.val();
+    }).then(data => {
+      const confessions = [];
+
+      for (const key in data) {
+        const confession = {
+          id: key,
+          ...data[key]
+        };
+
+        confessions.push(confession);
+      }
+      confessions.reverse();
+      setLoadedConfessions(confessions);
+    });
+
+
+  }
+  function LikeHandler() {
+
     const oldpost = query(ref(db, 'confessions'), orderByChild('likes'));
-   
-   get(oldpost).then(response => {
-     console.log(response.val())
-     return response.val();
-   }).then(data => {
-     const confessions = [];
 
-     for (const key in data) {
-       const confession = {
-         id: key,
-         ...data[key]
-     };
-     console.log(child(confession))
+    get(oldpost).then(response => {
+      console.log(response.val())
+      return response.val();
+    }).then(data => {
+      const confessions = [];
 
-     confessions.push(confession);
-   }
-   confessions.sort((a, b) => (a.likes > b.likes) ? 1 : -1)
-   confessions.reverse();
+      for (const key in data) {
+        const confession = {
+          id: key,
+          ...data[key]
+        };
+        confessions.push(confession);
+      }
+      confessions.sort((a, b) => (a.likes > b.likes) ? 1 : -1)
+      confessions.reverse();
+      setLoadedConfessions(confessions);
+    });
 
-   
-   setLoadedConfessions(confessions);
- }); 
-
- }
+  }
 
  function SearchHandler() {
 
