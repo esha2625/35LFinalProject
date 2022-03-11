@@ -17,7 +17,15 @@ function AllConfessionsPage() {
   const [error, setError] = useState('');
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
+  const [inputText, setInputText] = useState("");
 
+  let inputHandler = (e) => {
+    //convert input text to lower case
+    var lowerCase = e.target.value.toLowerCase();
+    setInputText(lowerCase);
+    console.log("Input Text: " + inputText);
+    SearchHandler();
+  };
 
   async function handleLogout() {
     setError('')
@@ -47,11 +55,10 @@ function AllConfessionsPage() {
 
           confessions.push(confession);
         }
-
+        confessions.reverse();
         setIsLoading(false);
         setLoadedConfessions(confessions);
       });
-
   }, []);
 
   if (isLoading) {
@@ -61,29 +68,6 @@ function AllConfessionsPage() {
       </section>
     );
   }
-  
-  function NewHandler() {
-    const db = getDatabase();
-    const newpost = query(ref(db, 'confessions'), orderByKey());
-    get(newpost).then(response => {
-      return response.val();
-    }).then(data => {
-      const confessions = [];
-
-      for (const key in data) {
-        const confession = {
-          id: key,
-          ...data[key]
-        };
-
-        confessions.push(confession);
-      } console.log(confessions);
-
-      confessions.reverse();
-      setLoadedConfessions(confessions);
-    });
-  }
-
   function OldHandler() {
     const db = getDatabase();
     const newpost = query(ref(db, 'confessions'), orderByKey());
@@ -103,7 +87,29 @@ function AllConfessionsPage() {
       setLoadedConfessions(confessions);
     });
   }
+  function NewHandler() {
 
+    const db = getDatabase();
+    const oldpost = query(ref(db, 'confessions'), orderByKey());
+    get(oldpost).then(response => {
+      return response.val();
+    }).then(data => {
+      const confessions = [];
+
+      for (const key in data) {
+        const confession = {
+          id: key,
+          ...data[key]
+        };
+
+        confessions.push(confession);
+      }
+      confessions.reverse();
+      setLoadedConfessions(confessions);
+    });
+
+
+  }
   function LikeHandler() {
 
     const oldpost = query(ref(db, 'confessions'), orderByChild('likes'));
@@ -119,41 +125,43 @@ function AllConfessionsPage() {
           id: key,
           ...data[key]
         };
-        console.log(confession)
-
         confessions.push(confession);
       }
       confessions.sort((a, b) => (a.likes > b.likes) ? 1 : -1)
       confessions.reverse();
-
-
       setLoadedConfessions(confessions);
     });
 
   }
 
   function SearchHandler() {
-    var search_parameter = "Derek Hua <33";
-    const db = getDatabase();
 
-    const newpost = query(ref(db, 'confessions'), orderByChild('likes'));
-    get(newpost).then(response => {
+    const db = getDatabase();
+    const search = query(ref(db, 'confessions'));
+    get(search).then(response => {
       return response.val();
     }).then(data => {
       const confessions = [];
 
+      var confession;
       for (const key in data) {
-        const confession = {
-          id: key,
-          ...data[key]
-        };
-        console.log(confession[3]); // TODO, grab title parameter
-        if (confession[3] == search_parameter) {
+        console.log(data[key].description);
+        if (data[key].title.toLowerCase().indexOf(inputText) !== -1 ||
+          data[key].description.toLowerCase().indexOf(inputText) !== -1) {
+          confession = {
+            id: key,
+            ...data[key]
+          };
           confessions.push(confession);
-        }
-      }
+        };
+
+
+      } console.log(confessions);
+
+
       setLoadedConfessions(confessions);
     });
+
   }
 
   return (
@@ -174,7 +182,7 @@ function AllConfessionsPage() {
         </div>
 
         <div className="search">
-          <input onChange={SearchHandler} placeholder="Search By Post Title or Contents" />
+          <input onKeyUp={inputHandler} placeholder="Search By Post Content and Title" />
         </div>
         <ConfessionList confessions={loadedConfessions} />
       </div>
